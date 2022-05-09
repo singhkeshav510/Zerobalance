@@ -33,8 +33,9 @@ const movieSchema = new mongoose.Schema({
     },
     avgRating:{
         type:Number,
-        min:[0,"Rating can't be less than 0"];
-        max:[5,"Rating can't be greater than 5"];
+        min:[0,"Rating can't be less than 0"],
+        max:[5,"Rating can't be greater than 5"],
+        default:0
     }
 }
 ,{

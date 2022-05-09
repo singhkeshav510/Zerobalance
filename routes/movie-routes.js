@@ -1,11 +1,21 @@
 const express = require('express');
 const {
-  login,
-  logout,
-  signin,
-} = require('../controllers/auth.controller');
+    getAllMovies,
+    addMovie,
+    getMovie,
+    updateMovie,
+    deleteMovie,
+    getRating,
+    giveRating,
+    updateRating,
+    deleteRating
+} = require('../controllers/movie.controller');
+
+const {protect} = require("../middlewares/auth");
 
 const router = express.Router({ mergeParams: true });
+
+router.use(protect);
 
 router
   .route('/')
@@ -19,10 +29,9 @@ router
   .delete(deleteMovie);
 
   router
-  .route('/rating')
+  .route('/rating/:id')
   .get(getRating)
   .post(giveRating)
-  .put(updateRating)
   .delete(deleteRating);
 
   

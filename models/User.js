@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
     attemptCount:{
         type:Number
     },
+    attemptedTime:{
+        type:Date
+    },
     favMovies:[{
         movie_id:{
             type: mongoose.Schema.ObjectId,
@@ -40,6 +43,10 @@ const userSchema = new mongoose.Schema({
         }
     }
     ],
+    isLocked:{
+        type:Boolean,
+        default:false
+    },
     lastLoginTime:{
         type:Date,
         default:Date.now()

@@ -2,6 +2,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middlewares/async');
 const User = require('../models/User');
 
+// need checking
 // @desc      Login a User
 // @route     POST /auth/login
 // @access    Public
@@ -16,12 +17,37 @@ exports.login = asyncHandler(async (req, res, next) => {
     if (!user) {
         return next(new ErrorResponse('Invalid credentials', 401));
     }
+    let attTime= new Date(user.attemptedTime);
+    let currentTime = new Date();
+
+    let dif = (currentTime - attTime);
+    dif = Math.round((dif/1000)/60);
+
+    if(dif<=30&&user.isLocked==true){
+        let v=30-dif;
+        return next(new ErrorResponse(`Try after ${v} minutes`, 403));
+    }
+    else if(user.isLocked==true){
+        user.isLocked=false;
+    }
     // Check if password matches
     const isMatch = await user.matchPassword(password);
 
     if (!isMatch){
+        if(user.attemptCount==4){
+           user.attemptCount=0;
+           user.isLocked=true;
+           user.attemptedTime=Date.now();
+        }
+        else {
+            user.isLocked=false;
+            user.attemptCount+=1;
+            user.attemptedTime=Date.now();
+        }
+        await user.save();
         return next(new ErrorResponse('Invalid credentials', 401));
     }
+    user.attemptCount=0;
     user.lastLoginTime=Date.now();
     await user.save();
     sendTokenResponse(user, 200, res);
