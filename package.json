@@ -1,0 +1,42 @@
+{
+  "name": "zerobalance",
+  "version": "1.0.0",
+  "description": "Intern Task",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server",
+    "swagger-autogen": "node ./utils/swagger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/singhkeshav510/Zerobalance.git"
+  },
+  "author": "Keshav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/singhkeshav510/Zerobalance/issues"
+  },
+  "homepage": "https://github.com/singhkeshav510/Zerobalance#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.4.0",
+    "helmet": "^5.0.2",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.2",
+    "swagger-autogen": "^2.21.1",
+    "swagger-ui-express": "^4.3.0",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
